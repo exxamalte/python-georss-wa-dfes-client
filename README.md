@@ -11,11 +11,10 @@ This library provides convenient access to the [Western Australia Department of 
 `pip install georss-wa-dfes-client`
 
 ## Usage
-See below for examples of how this library can be used for particular GeoRSS 
-feeds. After instantiating a particular class and supply the required 
-parameters, you can call `update` to retrieve the feed data. The return value 
-will be a tuple of a status code and the actual data in the form of a list of 
-feed entries specific to the selected feed.
+See below for an example of how this library can be used. After instantiating 
+the feed class and supplying the required parameters, you can call `update` to 
+retrieve the feed data. The return value will be a tuple of a status code and 
+the actual data in the form of a list of specific feed entries.
 
 **Status Codes**
 * _UPDATE_OK_: Update went fine and data was retrieved. The library may still return empty data, for example because no entries fulfilled the filter criteria.
