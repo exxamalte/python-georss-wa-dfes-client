@@ -9,7 +9,7 @@ REQUIRES = [
 
 setup(
     name="georss_wa_dfes_client",
-    version="0.1",
+    version="0.2",
     author="Malte Franken",
     author_email="coding@subspace.de",
     description="A GeoRSS client library for the WA Department of Fire and Emergency Services (DFES) feed.",
