@@ -5,10 +5,9 @@ Fetches GeoRSS feed from WA Department of Fire and Emergency Services (DFES)
 Feed.
 """
 import logging
-
 from typing import Optional
 
-from georss_client import GeoRssFeed, FeedEntry
+from georss_client import FeedEntry, GeoRssFeed
 from georss_client.consts import CUSTOM_ATTRIBUTE
 from georss_client.exceptions import GeoRssException
 from georss_client.feed_manager import FeedManagerBase
