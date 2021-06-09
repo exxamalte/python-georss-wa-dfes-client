@@ -15,65 +15,72 @@ from georss_client.feed_manager import FeedManagerBase
 
 _LOGGER = logging.getLogger(__name__)
 
-ADDITIONAL_NAMESPACES = {
-    'http://emergency.wa.gov.au/xmlns/dfes': 'dfes'
-}
+ADDITIONAL_NAMESPACES = {"http://emergency.wa.gov.au/xmlns/dfes": "dfes"}
 
 ATTRIBUTION = "Department of Fire and Emergency Services"
 
-REGEXP_ATTR_CATEGORY_WARNINGS = '<b>Category: </b>(?P<{}>[^<]+)</div>'\
-    .format(CUSTOM_ATTRIBUTE)
-REGEXP_ATTR_CATEGORY_ALL_INCIDENTS = '^(?P<{}>[^<]+) <'\
-    .format(CUSTOM_ATTRIBUTE)
-REGEXP_ATTR_REGION = '<region>(?P<{}>[^<]+)</region>'\
-    .format(CUSTOM_ATTRIBUTE)
+REGEXP_ATTR_CATEGORY_WARNINGS = "<b>Category: </b>(?P<{}>[^<]+)</div>".format(
+    CUSTOM_ATTRIBUTE
+)
+REGEXP_ATTR_CATEGORY_ALL_INCIDENTS = "^(?P<{}>[^<]+) <".format(CUSTOM_ATTRIBUTE)
+REGEXP_ATTR_REGION = "<region>(?P<{}>[^<]+)</region>".format(CUSTOM_ATTRIBUTE)
 
-URL_PREFIX = 'https://www.emergency.wa.gov.au/data/'
+URL_PREFIX = "https://www.emergency.wa.gov.au/data/"
 URLS = {
-    'warnings': URL_PREFIX + 'message.rss',
-    'all_incidents': URL_PREFIX + 'incident_FCAD.rss',
+    "warnings": URL_PREFIX + "message.rss",
+    "all_incidents": URL_PREFIX + "incident_FCAD.rss",
 }
 
-XML_TAG_DFES_REGION = 'dfes:region'
+XML_TAG_DFES_REGION = "dfes:region"
 
 
 class WaDfesFeedManager(FeedManagerBase):
     """Feed Manager for Department of Fire and Emergency Services feed."""
 
-    def __init__(self, generate_callback, update_callback, remove_callback,
-                 coordinates, feed, filter_radius=None,
-                 filter_categories=None):
+    def __init__(
+        self,
+        generate_callback,
+        update_callback,
+        remove_callback,
+        coordinates,
+        feed,
+        filter_radius=None,
+        filter_categories=None,
+    ):
         """Initialize the DFES Feed Manager."""
         feed = WaDfesFeed(
             coordinates,
             feed,
             filter_radius=filter_radius,
-            filter_categories=filter_categories)
-        super().__init__(feed, generate_callback, update_callback,
-                         remove_callback)
+            filter_categories=filter_categories,
+        )
+        super().__init__(feed, generate_callback, update_callback, remove_callback)
 
 
 class WaDfesFeed(GeoRssFeed):
     """Department of Fire and Emergency Services (DFES) feed."""
 
-    def __init__(self, home_coordinates, feed, filter_radius=None,
-                 filter_categories=None):
+    def __init__(
+        self, home_coordinates, feed, filter_radius=None, filter_categories=None
+    ):
         """Initialise this service."""
         if feed in URLS:
-            super().__init__(home_coordinates, URLS[feed],
-                             filter_radius=filter_radius,
-                             filter_categories=filter_categories)
+            super().__init__(
+                home_coordinates,
+                URLS[feed],
+                filter_radius=filter_radius,
+                filter_categories=filter_categories,
+            )
             self._feed = feed
         else:
             _LOGGER.error("Unknown feed category %s", feed)
-            raise GeoRssException("Feed category must be one of %s".format(
-                URLS.keys()))
+            raise GeoRssException("Feed category must be one of %s".format(URLS.keys()))
 
     def _new_entry(self, home_coordinates, rss_entry, global_data):
         """Generate a new entry."""
-        if self._feed == 'warnings':
+        if self._feed == "warnings":
             return WaDfesWarningsFeedEntry(home_coordinates, rss_entry)
-        if self._feed == 'all_incidents':
+        if self._feed == "all_incidents":
             return WaDfesAllIncidentsFeedEntry(home_coordinates, rss_entry)
 
     def _additional_namespaces(self):
@@ -84,9 +91,9 @@ class WaDfesFeed(GeoRssFeed):
         """Filter the provided entries."""
         entries = super()._filter_entries(entries)
         if self._filter_categories:
-            return list(filter(lambda entry:
-                               entry.category in self._filter_categories,
-                               entries))
+            return list(
+                filter(lambda entry: entry.category in self._filter_categories, entries)
+            )
         return entries
 
 
@@ -115,8 +122,7 @@ class WaDfesWarningsFeedEntry(WaDfesFeedEntry):
     def region(self) -> Optional[str]:
         """Return the region of this entry."""
         if self._rss_entry:
-            return self._rss_entry.get_additional_attribute(
-                XML_TAG_DFES_REGION)
+            return self._rss_entry.get_additional_attribute(XML_TAG_DFES_REGION)
         return None
 
 
