@@ -5,6 +5,7 @@ from unittest import mock
 
 from georss_client import UPDATE_OK
 from georss_client.exceptions import GeoRssException
+
 from georss_wa_dfes_client import WaDfesFeed, WaDfesFeedManager, WaDfesWarningsFeedEntry
 from tests import load_fixture
 
