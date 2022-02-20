@@ -1,7 +1,7 @@
 # python-georss-wa-dfes-client
 
-[![Build Status](https://travis-ci.org/exxamalte/python-georss-wa-dfes-client.svg)](https://travis-ci.org/exxamalte/python-georss-wa-dfes-client)
-[![Coverage Status](https://coveralls.io/repos/github/exxamalte/python-georss-wa-dfes-client/badge.svg?branch=master)](https://coveralls.io/github/exxamalte/python-georss-wa-dfes-client?branch=master)
+[![Build Status](https://github.com/exxamalte/python-georss-wa-dfes-client/workflows/CI/badge.svg?branch=master)](https://github.com/exxamalte/python-georss-wa-dfes-client/actions?workflow=CI)
+[![codecov](https://codecov.io/gh/exxamalte/python-georss-wa-dfes-client/branch/master/graph/badge.svg?token=QBQYPQ06CU)](https://codecov.io/gh/exxamalte/python-georss-wa-dfes-client)
 [![PyPi](https://img.shields.io/pypi/v/georss-wa-dfes-client.svg)](https://pypi.python.org/pypi/georss-wa-dfes-client)
 [![Version](https://img.shields.io/pypi/pyversions/georss-wa-dfes-client.svg)](https://pypi.python.org/pypi/georss-wa-dfes-client)
 
