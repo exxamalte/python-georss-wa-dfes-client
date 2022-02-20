@@ -1,22 +1,35 @@
+import os
+
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+NAME = "georss_wa_dfes_client"
+AUTHOR = "Malte Franken"
+AUTHOR_EMAIL = "coding@subspace.de"
+DESCRIPTION = "A GeoRSS client library for the WA Department of Fire and Emergency Services (DFES) feed."
+URL = "https://github.com/exxamalte/python-georss-wa-dfes-client"
 
 REQUIRES = [
     "georss_client>=0.15",
 ]
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+VERSION = {}
+with open(os.path.join(HERE, NAME, "__version__.py")) as f:
+    exec(f.read(), VERSION)  # pylint: disable=exec-used
+
 setup(
-    name="georss_wa_dfes_client",
-    version="0.3",
-    author="Malte Franken",
-    author_email="coding@subspace.de",
-    description="A GeoRSS client library for the WA Department of Fire and Emergency Services (DFES) feed.",
+    name=NAME,
+    version=VERSION["__version__"],
+    author=AUTHOR,
+    author_email=AUTHOR_EMAIL,
+    description=DESCRIPTION,
     license="Apache-2.0",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/exxamalte/python-georss-wa-dfes-client",
+    url=URL,
     packages=find_packages(exclude=("tests*",)),
     classifiers=[
         "Programming Language :: Python :: 3.7",
