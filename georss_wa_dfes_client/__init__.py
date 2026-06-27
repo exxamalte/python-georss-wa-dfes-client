@@ -1,11 +1,10 @@
-"""
-WA Department of Fire and Emergency Services (DFES) Feed.
+"""WA Department of Fire and Emergency Services (DFES) Feed.
 
 Fetches GeoRSS feed from WA Department of Fire and Emergency Services (DFES)
 Feed.
 """
+
 import logging
-from typing import Optional
 
 from georss_client import FeedEntry, GeoRssFeed
 from georss_client.consts import CUSTOM_ATTRIBUTE
@@ -18,11 +17,9 @@ ADDITIONAL_NAMESPACES = {"http://emergency.wa.gov.au/xmlns/dfes": "dfes"}
 
 ATTRIBUTION = "Department of Fire and Emergency Services"
 
-REGEXP_ATTR_CATEGORY_WARNINGS = "<b>Category: </b>(?P<{}>[^<]+)</div>".format(
-    CUSTOM_ATTRIBUTE
-)
-REGEXP_ATTR_CATEGORY_ALL_INCIDENTS = "^(?P<{}>[^<]+) <".format(CUSTOM_ATTRIBUTE)
-REGEXP_ATTR_REGION = "<region>(?P<{}>[^<]+)</region>".format(CUSTOM_ATTRIBUTE)
+REGEXP_ATTR_CATEGORY_WARNINGS = f"<b>Category: </b>(?P<{CUSTOM_ATTRIBUTE}>[^<]+)</div>"
+REGEXP_ATTR_CATEGORY_ALL_INCIDENTS = f"^(?P<{CUSTOM_ATTRIBUTE}>[^<]+) <"
+REGEXP_ATTR_REGION = f"<region>(?P<{CUSTOM_ATTRIBUTE}>[^<]+)</region>"
 
 URL_PREFIX = "https://www.emergency.wa.gov.au/data/"
 URLS = {
@@ -73,7 +70,7 @@ class WaDfesFeed(GeoRssFeed):
             self._feed = feed
         else:
             _LOGGER.error("Unknown feed category %s", feed)
-            raise GeoRssException("Feed category must be one of %s".format(URLS.keys()))
+            raise GeoRssException("Feed category must be one of %s")
 
     def _new_entry(self, home_coordinates, rss_entry, global_data):
         """Generate a new entry."""
@@ -81,6 +78,7 @@ class WaDfesFeed(GeoRssFeed):
             return WaDfesWarningsFeedEntry(home_coordinates, rss_entry)
         if self._feed == "all_incidents":
             return WaDfesAllIncidentsFeedEntry(home_coordinates, rss_entry)
+        return None
 
     def _additional_namespaces(self):
         """Provide additional namespaces, relevant for this feed."""
@@ -118,7 +116,7 @@ class WaDfesWarningsFeedEntry(WaDfesFeedEntry):
         return self._search_in_description(REGEXP_ATTR_CATEGORY_WARNINGS)
 
     @property
-    def region(self) -> Optional[str]:
+    def region(self) -> str | None:
         """Return the region of this entry."""
         if self._rss_entry:
             return self._rss_entry.get_additional_attribute(XML_TAG_DFES_REGION)
@@ -126,8 +124,7 @@ class WaDfesWarningsFeedEntry(WaDfesFeedEntry):
 
 
 class WaDfesAllIncidentsFeedEntry(WaDfesFeedEntry):
-    """Department of Fire and Emergency Services (DFES) All Incidents feed
-    entry."""
+    """Department of Fire and Emergency Services (DFES) All Incidents feed entry."""
 
     @property
     def category(self) -> str:
