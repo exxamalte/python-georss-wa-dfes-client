@@ -1,7 +1,26 @@
+[build-system]
+requires = [
+    "setuptools",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "georss_wa_dfes_client"
 version  = "0.4"
-
+requires-python = ">= 3.10"
+authors = [
+  {name = "Malte Franken", email = "coding@subspace.de"},
+]
+description = "A GeoRSS client library for the WA Department of Fire and Emergency Services (DFES) feed."
+readme = "README.md"
+license = "Apache-2.0"
+keywords = ["homeassistant", "georss", "western australia", "dfes"]
+classifiers = [
+  "Programming Language :: Python :: 3.10",
+  "Operating System :: OS Independent",
+  "Development Status :: 5 - Production/Stable",
+]
 dependencies = [
     "georss_client>=0.15",
 ]
@@ -13,6 +32,14 @@ tests = [
     "pytest-xdist",
     "pytest-cov",
 ]
+
+[project.urls]
+Repository = "https://github.com/exxamalte/python-georss-wa-dfes-client"
+Issues = "https://github.com/exxamalte/python-georss-wa-dfes-client/issues"
+Changelog = "https://github.com/exxamalte/python-georss-wa-dfes-client/blob/master/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+include = ["georss_wa_dfes_client*"]
 
 [tool.ruff.lint]
 select = [
