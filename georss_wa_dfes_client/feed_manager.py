@@ -13,9 +13,9 @@ class WaDfesFeedManager(FeedManagerBase):
         generate_callback,
         update_callback,
         remove_callback,
-        coordinates,
-        feed,
-        filter_radius=None,
+        coordinates: tuple[float, float],
+        feed: str,
+        filter_radius: float | None = None,
         filter_categories=None,
     ):
         """Initialize the DFES Feed Manager."""

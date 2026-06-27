@@ -5,12 +5,8 @@ import logging
 from georss_client import GeoRssFeed
 from georss_client.exceptions import GeoRssException
 
-from georss_wa_dfes_client import (
-    ADDITIONAL_NAMESPACES,
-    URLS,
-    WaDfesAllIncidentsFeedEntry,
-    WaDfesWarningsFeedEntry,
-)
+from .consts import ADDITIONAL_NAMESPACES, URLS
+from .feed_entry import WaDfesAllIncidentsFeedEntry, WaDfesWarningsFeedEntry
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -19,7 +15,11 @@ class WaDfesFeed(GeoRssFeed):
     """Department of Fire and Emergency Services (DFES) feed."""
 
     def __init__(
-        self, home_coordinates, feed, filter_radius=None, filter_categories=None
+        self,
+        home_coordinates: tuple[float, float],
+        feed: str,
+        filter_radius: float | None = None,
+        filter_categories=None,
     ):
         """Initialise this service."""
         if feed in URLS:
@@ -34,7 +34,7 @@ class WaDfesFeed(GeoRssFeed):
             _LOGGER.error("Unknown feed category %s", feed)
             raise GeoRssException("Feed category must be one of %s")
 
-    def _new_entry(self, home_coordinates, rss_entry, global_data):
+    def _new_entry(self, home_coordinates: tuple[float, float], rss_entry, global_data):
         """Generate a new entry."""
         if self._feed == "warnings":
             return WaDfesWarningsFeedEntry(home_coordinates, rss_entry)

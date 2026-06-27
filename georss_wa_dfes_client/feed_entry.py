@@ -14,7 +14,7 @@ from .consts import (
 class WaDfesFeedEntry(FeedEntry):
     """Department of Fire and Emergency Services (DFES) feed entry."""
 
-    def __init__(self, home_coordinates, rss_entry):
+    def __init__(self, home_coordinates: tuple[float, float], rss_entry):
         """Initialise this service."""
         super().__init__(home_coordinates, rss_entry)
 
