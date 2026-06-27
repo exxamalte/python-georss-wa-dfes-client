@@ -8,7 +8,9 @@ from georss_client import UPDATE_OK
 from georss_client.exceptions import GeoRssException
 import pytest
 
-from georss_wa_dfes_client import WaDfesFeed, WaDfesFeedManager, WaDfesWarningsFeedEntry
+from georss_wa_dfes_client.feed import WaDfesFeed
+from georss_wa_dfes_client.feed_entry import WaDfesWarningsFeedEntry
+from georss_wa_dfes_client.feed_manager import WaDfesFeedManager
 from tests import load_fixture
 
 HOME_COORDINATES = (-31.0, 121.0)
@@ -44,7 +46,7 @@ class TestWaDfesFeed(unittest.TestCase):
         assert feed_entry.coordinates == (-30.97304, 121.30196)
         assert round(abs(feed_entry.distance_to_home - 28.9), 1) == 0
         assert feed_entry.published == datetime.datetime(
-            2018, 9, 30, 8, 30, tzinfo=datetime.timezone.utc
+            2018, 9, 30, 8, 30, tzinfo=datetime.UTC
         )
         assert feed_entry.category == "Category 1"
         assert feed_entry.region == "Region 1"
@@ -189,7 +191,7 @@ class TestWaDfesFeed(unittest.TestCase):
         assert entries is not None
         assert len(entries) == 2
         assert feed_manager.last_timestamp == datetime.datetime(
-            2018, 9, 30, 8, 30, tzinfo=datetime.timezone.utc
+            2018, 9, 30, 8, 30, tzinfo=datetime.UTC
         )
         assert len(generated_entity_external_ids) == 2
         assert len(updated_entity_external_ids) == 0
