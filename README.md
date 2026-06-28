@@ -1,6 +1,6 @@
 # python-georss-wa-dfes-client
 
-[![Build Status](https://github.com/exxamalte/python-georss-wa-dfes-client/workflows/CI/badge.svg?branch=master)](https://github.com/exxamalte/python-georss-wa-dfes-client/actions?workflow=CI)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/exxamalte/python-georss-wa-dfes-client/ci.yaml)](https://github.com/exxamalte/python-georss-wa-dfes-client/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/exxamalte/python-georss-wa-dfes-client/branch/master/graph/badge.svg?token=QBQYPQ06CU)](https://codecov.io/gh/exxamalte/python-georss-wa-dfes-client)
 [![PyPi](https://img.shields.io/pypi/v/georss-wa-dfes-client.svg)](https://pypi.python.org/pypi/georss-wa-dfes-client)
 [![Version](https://img.shields.io/pypi/pyversions/georss-wa-dfes-client.svg)](https://pypi.python.org/pypi/georss-wa-dfes-client)
